@@ -19,6 +19,8 @@ const SensorTable = () => {
     return saved ? new Date(saved) : new Date();
   });
 
+  const [sortAsc, setSortAsc] = useState(false); // false = newest first
+
   useEffect(() => {
     const sensorRef = ref(rtdb, 'readings');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
@@ -29,20 +31,29 @@ const SensorTable = () => {
           ...entry,
           timestampObj: new Date(entry.timestamp)
         }));
-        setSensorData(parsedData);
+
+        const sortedData = parsedData.sort((a, b) =>
+          sortAsc
+            ? a.timestampObj - b.timestampObj
+            : b.timestampObj - a.timestampObj
+        );
+
+        setSensorData(sortedData);
       } else {
         setSensorData([]);
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [sortAsc]); // sort direction is a dependency
 
   const handleResetStartDate = () => {
     const now = new Date();
     localStorage.setItem('plantStartDate', now.toISOString());
     setStartDate(now);
   };
+
+  const toggleSort = () => setSortAsc((prev) => !prev);
 
   return (
     <div className="w-full h-full p-6">
@@ -60,7 +71,13 @@ const SensorTable = () => {
         <table className="min-w-full table-fixed">
           <thead className="bg-gray-200 sticky top-0 z-10">
             <tr>
-              <th className="text-left py-2 px-4 w-[200px]">Timestamp</th>
+              <th
+                className="text-left py-2 px-4 w-[200px] cursor-pointer select-none hover:bg-gray-300 transition"
+                onClick={toggleSort}
+                title="Click to sort by timestamp"
+              >
+                Timestamp {sortAsc ? "▲" : "▼"}
+              </th>
               <th className="text-left py-2 px-4 w-[160px]">Temperature (°C)</th>
               <th className="text-left py-2 px-4 w-[140px]">Humidity (%)</th>
               <th className="text-left py-2 px-4 w-[100px]">pH</th>
