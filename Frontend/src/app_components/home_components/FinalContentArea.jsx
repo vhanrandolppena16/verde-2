@@ -19,7 +19,7 @@ const HydroponicBackground = ({ collapsed }) => {
           bg-cover bg-center bg-no-repeat
         `}
         style={{
-          backgroundImage: "url('/src/assets/images/hydroponics2.jpg')",
+          backgroundImage: "url('https://scontent.fmnl4-3.fna.fbcdn.net/v/t39.30808-6/482204297_967463285454316_5317289252653549018_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VIB9Fneoxm0Q7kNvwHmyqCh&_nc_oc=AdnD554PWBkuVsu2jJKkl0XwzEiaCz8d7gbpKO7fxHInmQxEMEIh9H2-_jKZ-RA6MVdE6xIeHp1hjYKlI8C14t8T&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&_nc_gid=vgeFnQEUbyMqCEQl7RNUDw&oh=00_AfG3lcAU8fnvdVnuUScSKVL_TgUQxRpvVPOar69fntctfQ&oe=6800A4B8')",
         }}
       />
 
