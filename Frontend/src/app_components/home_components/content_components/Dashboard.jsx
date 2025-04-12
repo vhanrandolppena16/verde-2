@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [tdsvalue, setTDS] = useState(0);
 
   useEffect(() => {
-    const readingsRef = ref(rtdb, "sensor_logs");
+    const readingsRef = ref(rtdb, "readings");
 
     onValue(readingsRef, (snapshot) => {
       if (snapshot.exists()) {

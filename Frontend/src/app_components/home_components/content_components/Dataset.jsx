@@ -20,7 +20,7 @@ const SensorTable = () => {
   });
 
   useEffect(() => {
-    const sensorRef = ref(rtdb, 'sensor_logs');
+    const sensorRef = ref(rtdb, 'readings');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();
