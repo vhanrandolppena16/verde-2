@@ -24,7 +24,7 @@ const HydroponicBackground = ({ collapsed }) => {
       />
 
       {/* ✅ Reduced Outlet container height */}
-      <div className="relative top-20 z-20 w-full max-h-[620px] h-full p-6 overflow-y-auto">
+      <div className="relative items-center top-15 z-20 w-full max-h-[640px] h-full p-6 overflow-y-auto xl:overflow-hidden">
           <Outlet />
       </div>
 
