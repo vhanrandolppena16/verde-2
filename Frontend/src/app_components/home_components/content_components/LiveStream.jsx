@@ -21,6 +21,14 @@ const LiveStreamPage = ({ showControls = true }) => {
 
   useEffect(() => {
     document.title = "Livestream | Verde";
+  
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        stream.getTracks().forEach(track => track.stop());
+      })
+      .catch((err) => {
+        console.warn("Camera permission not granted:", err);
+      });
   }, []);
 
   return (

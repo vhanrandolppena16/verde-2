@@ -52,7 +52,8 @@ const useCameraManager = (videoRef) => {
         setIsCameraOn(true);
       } catch (err) {
         console.error("Error accessing webcam: ", err);
-      }
+        alert("Unable to access camera. Please allow permission and ensure no other app is using it.");
+    }
     };
   
     const stopCamera = () => {
