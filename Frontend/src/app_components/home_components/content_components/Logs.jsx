@@ -81,7 +81,7 @@ const Logs = () => {
   };
   
   useEffect(() => {
-    const sensorRef = ref(rtdb, "sensor_logs");
+    const sensorRef = ref(rtdb, "readings");
 
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {

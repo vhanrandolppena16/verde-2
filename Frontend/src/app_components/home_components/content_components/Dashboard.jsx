@@ -20,7 +20,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const readingsRef = ref(rtdb, "sensor_logs");
+    const readingsRef = ref(rtdb, "readings");
 
     onValue(readingsRef, (snapshot) => {
       if (snapshot.exists()) {
