@@ -16,6 +16,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    document.title = "Login | Verde";
+  }, []);
+
   // Function to handle login logic
   const handleLogIn = async () => {
     // Check for empty input fields

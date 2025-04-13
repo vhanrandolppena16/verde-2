@@ -97,6 +97,10 @@ const AccountPage = () => {
     }
   };
 
+  useEffect(() => {
+    document.title = "Account | Verde";
+  }, []);
+
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded-3xl shadow-xl overflow-y-auto">
       <div className="flex flex-col items-center">

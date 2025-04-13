@@ -3,7 +3,7 @@
 // Importing Libraries
 import React, { useState, useEffect } from 'react';             // Import React and its hooks
 import { useNavigate } from "react-router-dom";                 // Import useNavigate hook for programmatic navigation
-import { createUserWithEmailAndPassword } from "firebase/auth"; // Import Firebase method to create users with email & password
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Import Firebase method to create users with email & password
 import { doc, setDoc } from "firebase/firestore";               // Import Firestore methods to set document
 
 // Importing Other Resources
@@ -19,6 +19,10 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState(""); // Probably separate it into Firstname Lastname
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    document.title = "Sign Up | Verde";
+  }, []);
 
   // Function to handle signup logic
   const handleSignUp = async () => {
@@ -63,6 +67,8 @@ const SignUp = () => {
       });
 
       console.log("Company:", company); // Log company name will be removed
+      await signOut(authentication); // Force logout
+      navigate("/login"); // Navigate to login
 
     } catch (error) {
       // Log and show error
@@ -70,17 +76,6 @@ const SignUp = () => {
       alert("Error during sign up: " + error.message);
     }
   };
-
-  // Redirect if user is already logged in
-  useEffect(() => {
-    const unsubscribe = authentication.onAuthStateChanged((user) => {
-      if (user) {
-        navigate("/login"); // Navigate to login
-      }
-    });
-
-    return () => unsubscribe(); // Clean up listener
-  }, []);
 
   // Render UI
   return (

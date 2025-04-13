@@ -1,9 +1,9 @@
-// FinalContentArea.jsx
-import React from "react";
+import React, { useState } from "react";
 import GrowthStage from "../../../../assets/images/lettuce-growing-timeline.png";
 
-
 const PredictionStage = () => {
+  const [hovered, setHovered] = useState(false); // Track hover state
+
   return (
     <div
       className="
@@ -16,9 +16,17 @@ const PredictionStage = () => {
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <h2 className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-green-100 py-1 rounded-md text-sm font-2xl shadow">
-        Prediction Results
+      <h2
+        className="
+          relative items-center 
+          bg-green-700 text-white px-6 py-3 rounded-xl shadow-xl 
+          text-4xl font-bold tracking-wide transition-all duration-200
+        "
+      >
+        {hovered ? "Prediction Results" : "Vegetative Stage"}
       </h2>
     </div>
   );

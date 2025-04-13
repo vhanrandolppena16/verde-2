@@ -38,7 +38,7 @@ const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
     { text: "Dataset", icon: <DatasetIcon />, route: "/dataset" },
     { text: "Control", icon: <SettingsIcon />, route: "/control" },
     { text: "Logs", icon: <SettingsIcon />, route: "/logs" },
-    { text: "Account", icon: <AccountCircleIcon />, route: "/account" },
+    // { text: "Account", icon: <AccountCircleIcon />, route: "/account" },
     { text: "About", icon: <InfoIcon />, route: "/about" },
     { text: "Live Stream", icon: <LiveTvIcon />, route: "/livestream" },
   ];

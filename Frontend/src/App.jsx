@@ -14,11 +14,15 @@ import SignUp from "./startup_components/login_components/Signup";          // S
 // import Home from "./app_components/FinalHome";                           // Main component shown after login (dashboard, etc.)
 import Home from "./app_components/Home";                           // Main component shown after login (dashboard, etc.)
 import Dashboard from "./app_components/home_components/content_components/Dashboard";
-import PredictionTrends from "./app_components/home_components/content_components/analysis_components/PredictionTrends";
+import SensorGraph from "./app_components/home_components/content_components/Analysis";
 import Dataset from "./app_components/home_components/content_components/Dataset"
-import AccountPage from "./app_components/home_components/content_components/Account"
+// import AccountPage from "./app_components/home_components/content_components/Account"
 import AboutPage from "./app_components/home_components/content_components/About"
 import LiveStreamPage from "./app_components/home_components/content_components/LiveStream"
+import Logs from "./app_components/home_components/content_components/Logs"
+import Control from "./app_components/home_components/content_components/Control"
+
+
 
 // Main App component
 function App() {
@@ -34,11 +38,11 @@ function App() {
 
         <Route path='/' element={<Home/>}>
           <Route path="/dashboard" element={<Dashboard/>}/>
-          <Route path='/analysis' element={<PredictionTrends />}/>
+          <Route path='/analysis' element={<SensorGraph />}/>
           <Route path='/dataset' element={<Dataset />}/>
-          <Route path='/control'/>
-          <Route path='/logs'/>
-          <Route path='/account' element={<AccountPage />}/>
+          <Route path='/control'element={<Control />}/>
+          <Route path='/logs' element={<Logs />}/>
+          {/* <Route path='/account' element={<AccountPage />}/> */}
           <Route path='/about' element={<AboutPage />}/>
           <Route path='/livestream' element={<LiveStreamPage />}/>
           <Route path='/logout'/> 

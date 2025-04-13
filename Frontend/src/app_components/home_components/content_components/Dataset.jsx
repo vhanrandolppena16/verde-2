@@ -22,7 +22,11 @@ const SensorTable = () => {
   const [sortAsc, setSortAsc] = useState(false); // false = newest first
 
   useEffect(() => {
-    const sensorRef = ref(rtdb, 'readings');
+    document.title = "Dataset | Verde";
+  }, []);
+
+  useEffect(() => {
+    const sensorRef = ref(rtdb, 'sensor_logs');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();
