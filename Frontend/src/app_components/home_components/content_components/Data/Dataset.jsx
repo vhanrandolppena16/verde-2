@@ -83,7 +83,7 @@ const SensorTable = () => {
       </div>
 
       {/* Scrollable table container */}
-      <div className="relative overflow-auto max-h-[500px] rounded-xl shadow bg-white">
+      <div className="relative overflow-auto max-h-[90%] rounded-xl shadow bg-white">
         <table className="min-w-full table-fixed">
           <thead className="bg-gray-200 sticky top-0 z-10">
             <tr>
