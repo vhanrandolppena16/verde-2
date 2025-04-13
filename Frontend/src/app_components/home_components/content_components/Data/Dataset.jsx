@@ -70,7 +70,7 @@ const SensorTable = () => {
 
   return (
     // Whole Dataset Container
-    <div className="w-full h-full p-6 bg-emerald-200 mt-7 rounded-[30px]">
+    <div className="w-full h-[90%] p-6 bg-emerald-200 mt-5 rounded-[30px]">
       {/* Header with reset button */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Sensor Readings Table</h2>
