@@ -5,7 +5,7 @@ import { rtdb } from "../../../firebase/firebase";
 const THRESHOLDS = {
   temperature: { min: 18, max: 35 },
   humidity: { min: 40, max: 80 },
-  ph: { min: 5, max: 7.5 },
+  ph: { min: 5.5, max: 7.5 },
   tds: { min: 600, max: 1200 },
 };
 
@@ -92,7 +92,7 @@ const Logs = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [activeAlerts]);
 
   return (
     <div className="w-full bg-white shadow-lg rounded-xl p-6 mb-6">
