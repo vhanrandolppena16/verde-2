@@ -92,7 +92,7 @@ const Logs = () => {
     });
 
     return () => unsubscribe();
-  }, [activeAlerts]);
+  }, [activeAlerts]); // Still modify this
 
   return (
     <div className="w-full bg-white shadow-lg rounded-xl p-6 mb-6">
