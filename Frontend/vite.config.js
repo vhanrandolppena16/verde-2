@@ -10,6 +10,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  build: {
+    outDir: 'dist', // Ensures Vercel knows where the output goes
+  },
+  server: {
+    port: 5173, // Optional: for local dev consistency
+  }
+
   // resolve: {
   //   alias: {
   //     firebase: path.resolve(__dirname, 'node_modules/firebase')
