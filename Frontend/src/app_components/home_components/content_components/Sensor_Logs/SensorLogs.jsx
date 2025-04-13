@@ -86,10 +86,16 @@ const Logs = () => {
     setActiveAlerts(updatedActiveAlerts);
   };
 
-  // useEffect hook to subscribe to sensor data updates
-  useEffect(() => {
-    const sensorRef = ref(sensor_db, "readings"); // reference to sensor data
+  const rerunCountRef = useRef(0); // Tracks how many times effect ran
 
+  useEffect(() => {
+    if (rerunCountRef.current >= 3) return; // Stop after 3 runs
+  
+    // Increment the rerun count
+    rerunCountRef.current += 1;
+  
+    const sensorRef = ref(sensor_db, "readings"); // reference to sensor data
+  
     // Set up a realtime listener
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -98,11 +104,11 @@ const Logs = () => {
         checkAndTrack(lastEntry); // evaluate the reading
       }
     });
-
-    // Cleanup listener when component unmounts
+  
+    // Cleanup listener on unmount
     return () => unsubscribe();
-  }, [activeAlerts]); // re-run if alert status changes
-
+  }, [activeAlerts]); // Effect will only run 3 times max
+  
   // JSX to display the alerts section
   return (
     <div className="w-full bg-white shadow-lg rounded-xl p-6 mb-6">
