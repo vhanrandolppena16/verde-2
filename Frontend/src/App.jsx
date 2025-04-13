@@ -14,14 +14,11 @@ import { Routes, Route } from "react-router";
     import Home from "./app_components/home_components/Home";                           // Main component shown after login (dashboard, etc.)
     import Dashboard from "./app_components/home_components/content_components/Dashboard/Dashboard";
     import SensorGraph from "./app_components/home_components/content_components/Data Analytics/Analytics";
-    import Dataset from "./app_components/home_components/content_components/Data/Dataset"
-    // import AccountPage from "./app_components/home_components/content_components/Account"
-    import AboutPage from "./app_components/home_components/content_components/About/About"
-    import LiveStreamPage from "./app_components/home_components/content_components/LiveStream/LiveStream"
-    import Logs from "./app_components/home_components/content_components/Logs/Sensor_Logs"
-    import Control from "./app_components/home_components/content_components/Env Parameter Control/Control"
-
-
+    import Dataset from "./app_components/home_components/content_components/Data/Dataset";
+    import AboutPage from "./app_components/home_components/content_components/About/About";
+    import LiveStreamPage from "./app_components/home_components/content_components/LiveStream/LiveStream";
+    import Logs from "./app_components/home_components/content_components/Logs/Sensor_Logs";
+    import Control from "./app_components/home_components/content_components/Env Parameter Control/Control";
 
 // Main App component
 function App() {
