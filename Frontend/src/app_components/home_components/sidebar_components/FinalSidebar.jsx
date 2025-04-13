@@ -1,26 +1,30 @@
 // FinalSidebar.jsx
-import React from "react";
-import {
-  ChevronRight,
-  ChevronLeft,
-  Dashboard as DashboardIcon,
-  Assessment as AssessmentIcon,
-  Dataset as DatasetIcon,
-  Settings as SettingsIcon,
-  AccountCircle as AccountCircleIcon,
-  Info as InfoIcon,
-  Logout as LogoutIcon,
-  LiveTv as LiveTvIcon,
-} from "@mui/icons-material";
 
-import { useNavigate } from "react-router-dom";
-import { authentication } from "../../../Firebase Database/FirebaseConfig";
+// Importing Libraries
+  import React from "react";
+  import { useNavigate } from "react-router-dom";
+  // Importing MUI Icons
+    import {
+      ChevronRight,
+      ChevronLeft,
+      Dashboard as DashboardIcon,
+      Assessment as AssessmentIcon,
+      Dataset as DatasetIcon,
+      Settings as SettingsIcon,
+      AccountCircle as AccountCircleIcon,
+      Info as InfoIcon,
+      Logout as LogoutIcon,
+      LiveTv as LiveTvIcon,
+    } from "@mui/icons-material";
+
+// Importing Authentication for the Logout Button    
+  import { authentication } from "../../../Firebase Database/FirebaseConfig";
 
 const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    const confirmed = window.confirm("Are you sure you want to log out?");
+    const confirmed = window.confirm("Are you sure you want to log out?");  
     if (confirmed) {
       authentication
         .signOut()
@@ -31,28 +35,32 @@ const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
     }
   };
   
-
+  // Declaration of Navigation Buttons
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, route: "/dashboard" },
     { text: "Analysis", icon: <AssessmentIcon />, route: "/analysis" },
     { text: "Dataset", icon: <DatasetIcon />, route: "/dataset" },
     { text: "Control", icon: <SettingsIcon />, route: "/control" },
     { text: "Logs", icon: <SettingsIcon />, route: "/logs" },
-    // { text: "Account", icon: <AccountCircleIcon />, route: "/account" },
-    { text: "About", icon: <InfoIcon />, route: "/about" },
     { text: "Live Stream", icon: <LiveTvIcon />, route: "/livestream" },
   ];
 
+  // Function which stores an item and passes the text and route to the setNav and navigate functions respectively 
   const handleItemClick = (item) => {
     setNavigationText(item.text);
     navigate(item.route);
   };
 
   return (
+    // Sidebar Container which has a condition based if the button is toggled for expansion or collapse of sidebar
     <div
       className={`${
         collapsed ? "w-[105px]" : "w-[250px]"
-      } bg-pink-100 transition-all duration-500 ease-in-out p-2 h-[calc(100vh-80px)] fixed top-20 left-0 z-50 flex flex-col justify-between shadow-md`}
+      } h-[calc(100vh-80px)]
+      flex flex-col justify-between
+      bg-pink-100 shadow-md
+      transition-all duration-500 ease-in-out       
+      fixed top-20 left-0 z-50 p-2`}
     >
       {/* Top section (toggle + menu items) */}
       <div>
@@ -72,7 +80,6 @@ const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
                 hover:bg-green-200 hover:scale-110
                 shadow
                 "
-                title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             >
                 {collapsed ? (
                 <ChevronRight fontSize="large" />
@@ -85,8 +92,8 @@ const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
         {/* Main Navigation Buttons */}
         <div
           className={`flex flex-col ${
-            collapsed ? "items-start" : "items-end"
-          } w-full pr-2`}
+            collapsed ? "items-start ml-4" : "items-end"
+          } w-full pr-5 `}
         >
           {menuItems.map((item, index) => (
             <button

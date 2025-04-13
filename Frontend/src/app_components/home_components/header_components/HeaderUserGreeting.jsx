@@ -1,18 +1,16 @@
 // FinalHeaderUserGreeting.jsx
 
 // Import required libraries and modules
-import React, { useEffect, useState } from "react";                       // React + Hooks
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";       // MUI icon for user avatar
-import { useNavigate } from "react-router-dom";                          // React Router hook for navigation
-import { authentication, db } from "../../../Firebase Database/FirebaseConfig";      // Firebase Auth and Firestore config
-import { doc, getDoc } from "firebase/firestore";                        // Firestore methods to fetch user data
+  import React, { useEffect, useState } from "react";                                 // React + Hooks
+  import AccountCircleIcon from "@mui/icons-material/AccountCircle";                  // MUI icon for user avatar
+  import { authentication, db } from "../../../Firebase Database/FirebaseConfig";     // Firebase Auth and Firestore config
+  import { doc, getDoc } from "firebase/firestore";                                   // Firestore methods to fetch user data
 
 // Define the UserGreeting component
 const UserGreeting = ({ avoidWidth = 0 }) => {
   const [username, setUsername] = useState("");        // State to store username
-  const navigate = useNavigate();                      // Hook to programmatically navigate to /profile
 
-  // Fetch user info on component mount
+  // Fetch user info based on userCredentials
   useEffect(() => {
     const fetchUserInfo = async () => {
       const user = authentication.currentUser;         // Get the currently logged-in user
@@ -28,22 +26,20 @@ const UserGreeting = ({ avoidWidth = 0 }) => {
       }
     };
 
-    fetchUserInfo(); // Call the async function
-  }, []); // Empty dependency array = run once on mount
+    fetchUserInfo();    // Call the function
+  }, []);               // Empty dependency array = run once on mount
 
-  const buffer = 8; // ✅ ensure margin space is respected
-  const marginRight = 8; // ✅ 1rem right spacing (same as mr-4)
+  const buffer = 8;       // ensure margin space
+  const marginRight = 8;  // 1rem right spacing (same as mr-4)
 
-  // Render UI
   return (
     <div
       onClick={() => navigate("/account")} // Navigate to /profile on click
       style={{
-        // marginRight: `${avoidWidth + 8}px`, // ✅ Add extra space after navDisplay (32px padding buffer)
-        maxWidth: `calc(100% - ${avoidWidth + buffer + marginRight}px)`, // ✅ MODIFIED: prevent overflow and account for nav
-        whiteSpace: "nowrap",                           // ✅ prevent text wrapping
-        overflow: "hidden",                             // ✅ hide overflowed text
-        textOverflow: "ellipsis"                         // ✅ show ... when text overflows
+        maxWidth: `calc(100% - ${avoidWidth + buffer + marginRight}px)`,    // Prevents overflow and account for navigationdisplay
+        whiteSpace: "nowrap",                                               // prevent text wrapping
+        overflow: "hidden",                                                 // hide overflowed text
+        textOverflow: "ellipsis"                                            // show ... when text overflows
       }}
       className="
         ml-auto mr-4
@@ -56,7 +52,7 @@ const UserGreeting = ({ avoidWidth = 0 }) => {
         cursor-pointer hover:bg-blue-700              // Pointer cursor + darker background on hover
       "
     >
-      <AccountCircleIcon className="!text-white !text-4xl" /> {/* User icon with enforced styling */}
+      <AccountCircleIcon className="!text-white !text-4xl" /> {/* User icon */}
       
       <div className="flex flex-col text-left leading-tight">
         {/* Greeting message */}
@@ -70,4 +66,4 @@ const UserGreeting = ({ avoidWidth = 0 }) => {
   );
 };
 
-export default UserGreeting; // Export component
+export default UserGreeting;

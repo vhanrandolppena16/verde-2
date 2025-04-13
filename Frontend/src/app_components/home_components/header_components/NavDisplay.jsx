@@ -1,12 +1,12 @@
 // FinalHeaderNavDisplay.jsx
 
 // Import libraries
-import React, {forwardRef} from "react";
+  import React, {forwardRef} from "react";
 
 // NAVIGATION TEXT CONTAINER
 const NavigationDisplay = forwardRef(({ text }, ref) => (
   <div 
-  ref={ref} // ✅ attach ref
+  ref={ref} // attach ref
   className="
     bg-[#2b6340]                          // Bright red background
     h-[60%]                             // 60% of nav bar height

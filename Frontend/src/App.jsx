@@ -11,7 +11,7 @@ import { Routes, Route } from "react-router";
     import SignUp from "./app_components/startup_components/login_components/Signup";                // Sign-up/registration form component
 
   // Importing components for the project content such as environmental parameter monitoring, prediction, and control.
-    import Home from "./app_components/home_components/Home";                           // Main component shown after login (dashboard, etc.)
+    import Home from "./app_components/home_components/Home";                           
     import Dashboard from "./app_components/home_components/content_components/Dashboard/Dashboard";
     import SensorGraph from "./app_components/home_components/content_components/Data Analytics/Analytics";
     import Dataset from "./app_components/home_components/content_components/Data/Dataset";
@@ -42,17 +42,6 @@ function App() {
           <Route path='/livestream' element={<LiveStreamPage />}/>
           <Route path='/logout'/> 
         </Route>
-
-        {/* <Route path='/dashboard' element={<Home />}/>
-        <Route path='/analysis' element={<Home />}/>
-        <Route path='/dataset' element={<Home />}/>
-        <Route path='/control' element={<Home />}/>
-        <Route path='/logs' element={<Home />}/>
-        <Route path='/account' element={<Home />}/>
-        <Route path='/about' element={<Home />}/>
-        <Route path='/livestream' element={<Home />}/>
-        <Route path='/logout' element={<Home />}/> */}
-
       </Routes>
 
     </>

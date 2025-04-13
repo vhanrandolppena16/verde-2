@@ -2,7 +2,7 @@
 import { Outlet } from "react-router-dom";
 import React from "react";
 
-const HydroponicBackground = ({ collapsed }) => {
+const ContentArea = ({ collapsed }) => {
   return (
     <div
       className={`
@@ -32,4 +32,4 @@ const HydroponicBackground = ({ collapsed }) => {
   );
 };
 
-export default HydroponicBackground;
+export default ContentArea;

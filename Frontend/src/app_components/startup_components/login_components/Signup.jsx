@@ -1,10 +1,10 @@
 // SignUp.jsx
 
 // Importing Libraries
-import React, { useState, useEffect } from 'react';             // Import React and its hooks
-import { useNavigate } from "react-router-dom";                 // Import useNavigate hook for programmatic navigation
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Import Firebase method to create users with email & password
-import { doc, setDoc } from "firebase/firestore";               // Import Firestore methods to set document
+import React, { useState, useEffect } from 'react';                       // Import React and its hooks
+import { useNavigate } from "react-router-dom";                           // Import useNavigate for application navigation
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";  // Import Firebase method to create users with email & password
+import { doc, setDoc } from "firebase/firestore";                         // Import Firestore methods to set document
 
 // Importing Other Resources
 import { authentication, db } from "../../../Firebase Database/FirebaseConfig";  // Import Firebase config (authentication and database instances)
@@ -17,7 +17,7 @@ const SignUp = () => {
   // State variables for form inputs
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState(""); // Probably separate it into Firstname Lastname
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const SignUp = () => {
   const handleSignUp = async () => {
     // Check if any field is empty
     if (!email || !password || !username || !company) {
-      alert("Please fill in all the fields."); // Show alert
-      return; // Stop execution
+      alert("Please fill in all the fields.");    // Show alert
+      return;                                     // Stop execution
     }
 
     // Regular expression to validate email format
@@ -62,11 +62,8 @@ const SignUp = () => {
         email: user.email,
         company: company,
         username: username
-        // password: user.password // Delete when deployed
-        // Password should not be stored here
       });
 
-      console.log("Company:", company); // Log company name will be removed
       await signOut(authentication); // Force logout
       navigate("/login"); // Navigate to login
 
