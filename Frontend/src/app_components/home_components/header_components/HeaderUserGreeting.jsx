@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";                       // React + Hooks
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";       // MUI icon for user avatar
 import { useNavigate } from "react-router-dom";                          // React Router hook for navigation
-import { authentication, db } from "../../../firebase/firebase";      // Firebase Auth and Firestore config
+import { authentication, db } from "../../../Firebase Database/FirebaseConfig";      // Firebase Auth and Firestore config
 import { doc, getDoc } from "firebase/firestore";                        // Firestore methods to fetch user data
 
 // Define the UserGreeting component

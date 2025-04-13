@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ref, onValue } from "firebase/database";
-import { rtdb } from "../../../firebase/firebase";
+import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
 import {
   LineChart,
   Line,
@@ -25,7 +25,7 @@ const SensorGraph = () => {
   const [multiSelect, setMultiSelect] = useState(false);
 
   useEffect(() => {
-    const sensorRef = ref(rtdb, "readings");
+    const sensorRef = ref(sensor_db, "readings");
 
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {

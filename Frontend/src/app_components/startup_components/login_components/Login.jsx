@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";       // Hook to programmaticall
 
 // Importing Firebase authentication methods
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { authentication } from "../../firebase/firebase"; // Firebase config and auth instance
+import { authentication } from "../../../Firebase Database/FirebaseConfig"; // Firebase config and auth instance
 
 // Login component definition, accepts optional props like setView
 const Login = () => {

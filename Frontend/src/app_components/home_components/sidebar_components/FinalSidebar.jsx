@@ -14,7 +14,7 @@ import {
 } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
-import { authentication } from "../../firebase/firebase";
+import { authentication } from "../../../Firebase Database/FirebaseConfig";
 
 const Sidebar = ({ setNavigationText, collapsed, setCollapsed }) => {
   const navigate = useNavigate();

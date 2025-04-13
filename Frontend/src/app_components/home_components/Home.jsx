@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import Header from "./home_components/FinalHeader";
+import Header from "./header_components/FinalHeader";
 // import Sidebar from "./old_home_components/Sidebar";
-import Sidebar from "./home_components/FinalSidebar";
-import HydroponicBackground from "./home_components/FinalContentArea";
+import Sidebar from "./sidebar_components/FinalSidebar";
+import HydroponicBackground from "./content_components/FinalContentArea";
 
 // Most likely, the className is similar to containers used in 
 // .css files which can be used to set up their dimensions

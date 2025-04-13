@@ -4,23 +4,22 @@
 import { Routes, Route } from "react-router";
 
 // Importing custom components used in the app
-import AppBackground from "./startup_components/AppBackground";     // Sets up the background
+  // Importing components for user authentication
+    import AuthLayout from "./app_components/startup_components/AuthLayout";                         // Serves as the base for the Welcome Screen
+    import WelcomeScreen from "./app_components/startup_components/login_components/WelcomeScreen";  // Choose between Login or SignUp
+    import Login from "./app_components/startup_components/login_components/Login";                  // Login form component
+    import SignUp from "./app_components/startup_components/login_components/Signup";                // Sign-up/registration form component
 
-import AuthLayout from "./startup_components/AuthLayout";                                   // Welcome or landing screen
-import WelcomeScreen from "./startup_components/login_components/WelcomeScreen";  // Login/SignUp form component
-import Login from "./startup_components/login_components/Login";            // Login form component
-import SignUp from "./startup_components/login_components/Signup";          // Sign-up/registration form component
-
-// import Home from "./app_components/FinalHome";                           // Main component shown after login (dashboard, etc.)
-import Home from "./app_components/Home";                           // Main component shown after login (dashboard, etc.)
-import Dashboard from "./app_components/home_components/content_components/Dashboard";
-import SensorGraph from "./app_components/home_components/content_components/Analysis";
-import Dataset from "./app_components/home_components/content_components/Dataset"
-// import AccountPage from "./app_components/home_components/content_components/Account"
-import AboutPage from "./app_components/home_components/content_components/About"
-import LiveStreamPage from "./app_components/home_components/content_components/LiveStream"
-import Logs from "./app_components/home_components/content_components/Logs"
-import Control from "./app_components/home_components/content_components/Control"
+  // Importing components for the project content such as environmental parameter monitoring, prediction, and control.
+    import Home from "./app_components/home_components/Home";                           // Main component shown after login (dashboard, etc.)
+    import Dashboard from "./app_components/home_components/content_components/Dashboard/Dashboard";
+    import SensorGraph from "./app_components/home_components/content_components/Data Analytics/Analytics";
+    import Dataset from "./app_components/home_components/content_components/Data/Dataset"
+    // import AccountPage from "./app_components/home_components/content_components/Account"
+    import AboutPage from "./app_components/home_components/content_components/About/About"
+    import LiveStreamPage from "./app_components/home_components/content_components/LiveStream/LiveStream"
+    import Logs from "./app_components/home_components/content_components/Logs/Sensor_Logs"
+    import Control from "./app_components/home_components/content_components/Env Parameter Control/Control"
 
 
 
@@ -42,7 +41,6 @@ function App() {
           <Route path='/dataset' element={<Dataset />}/>
           <Route path='/control'element={<Control />}/>
           <Route path='/logs' element={<Logs />}/>
-          {/* <Route path='/account' element={<AccountPage />}/> */}
           <Route path='/about' element={<AboutPage />}/>
           <Route path='/livestream' element={<LiveStreamPage />}/>
           <Route path='/logout'/> 

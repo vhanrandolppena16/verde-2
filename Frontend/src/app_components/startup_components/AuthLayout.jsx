@@ -5,8 +5,8 @@ import React from "react";
 import { Outlet } from "react-router-dom"; // For rendering nested routes
 
 // Import assets
-import logo from "../assets/images/Verde Full Logo.png";
-import hydroponics from "../assets/images/hydroponics2.jpg";
+import logo from "../../assets/images/Verde Full Logo.png";
+import hydroponics from "../../assets/images/hydroponics2.jpg";
 import AppBackground from "./AppBackground";     // Sets up the background
 
 // Define the AuthLayout component

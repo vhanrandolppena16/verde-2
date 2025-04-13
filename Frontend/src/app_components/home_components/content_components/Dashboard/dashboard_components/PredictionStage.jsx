@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GrowthStage from "../../../../assets/images/lettuce-growing-timeline.png";
+import GrowthStage from "../../../../../assets/images/lettuce-growing-timeline.png";
 
 const PredictionStage = () => {
   const [hovered, setHovered] = useState(false); // Track hover state

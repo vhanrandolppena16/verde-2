@@ -1,9 +1,9 @@
 // FinalHeader.jsx
 
 import React, { useRef, useState, useEffect } from "react";
-import Logo from "./header_components/HeaderLogo";
-import NavigationDisplay from "./header_components/NavDisplay";
-import UserGreeting from "./header_components/HeaderUserGreeting";
+import Logo from "./HeaderLogo";
+import NavigationDisplay from "./NavDisplay";
+import UserGreeting from "./HeaderUserGreeting";
 
 const Header = ({ navigationText }) => {
   const navRef = useRef(null); // ✅ MODIFIED: reference to nav display element

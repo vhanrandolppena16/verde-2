@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, signOut } from "firebase/auth"; // Impo
 import { doc, setDoc } from "firebase/firestore";               // Import Firestore methods to set document
 
 // Importing Other Resources
-import { authentication, db } from "../../firebase/firebase";  // Import Firebase config (authentication and database instances)
+import { authentication, db } from "../../../Firebase Database/FirebaseConfig";  // Import Firebase config (authentication and database instances)
 
 // Define SignUp component
 const SignUp = () => {

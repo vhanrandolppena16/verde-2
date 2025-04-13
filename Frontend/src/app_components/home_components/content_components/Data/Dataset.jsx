@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
-import { rtdb } from "../../../firebase/firebase";
+import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
 
 const GROWTH_DURATION_DAYS = 30;
 
@@ -26,7 +26,7 @@ const SensorTable = () => {
   }, []);
 
   useEffect(() => {
-    const sensorRef = ref(rtdb, 'readings');
+    const sensorRef = ref(sensor_db, 'readings');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();

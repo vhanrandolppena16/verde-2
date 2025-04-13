@@ -23,12 +23,16 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const authentication = getAuth(app);
-const db = getFirestore(app);
-const rtdb = getDatabase(app);
 
-// const analytics = getAnalytics(app);
+// Get
+const authentication = getAuth(app);
+
+// Access Firestore Database for User Logins
+const db = getFirestore(app);
+
+// Access Realtime Database for Sensor Readings
+const sensor_db = getDatabase(app);
 
 // export authentication for checking of credentials
 // export db for storing Company Name and Username
-export { authentication, db, rtdb }; 
+export { authentication, db, sensor_db }; 

@@ -1,13 +1,12 @@
 // src/components/Dashboard.jsx
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { rtdb } from "../../../firebase/firebase"; // Make sure the path is correct
+import { sensor_db } from "../../../../Firebase Database/FirebaseConfig"; // Make sure the path is correct
 import { ref, onValue } from "firebase/database"; // Import Firebase database functions
 
-import SensorReadings from "./dashboard_component/GaugeDisplay";
-import PredictionStage from "./dashboard_component/PredictionStage";
-import CameraFeed from "./dashboard_component/DashboardCamFeed";
-import LiveStreamPage from "./LiveStream";
+import SensorReadings from "./dashboard_components/GaugeDisplay";
+import PredictionStage from "./dashboard_components/PredictionStage";
+import LiveStreamPage from "../LiveStream/LiveStream";
 
 const Dashboard = () => {
   const [temperaturevalue, setTemperature] = useState(null);
@@ -20,7 +19,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    const readingsRef = ref(rtdb, "readings");
+    const readingsRef = ref(sensor_db, "readings");
 
     onValue(readingsRef, (snapshot) => {
       if (snapshot.exists()) {
