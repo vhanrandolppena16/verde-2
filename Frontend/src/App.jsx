@@ -17,7 +17,7 @@ import { Routes, Route } from "react-router";
     import Dataset from "./app_components/home_components/content_components/Data/Dataset";
     import AboutPage from "./app_components/home_components/content_components/About/About";
     import LiveStreamPage from "./app_components/home_components/content_components/LiveStream/LiveStream";
-    import Logs from "./app_components/home_components/content_components/Logs/Sensor_Logs";
+    import Logs from "./app_components/home_components/content_components/Sensor_Logs/SensorLogs";
     import Control from "./app_components/home_components/content_components/Env Parameter Control/Control";
 
 // Main App component
