@@ -1,6 +1,7 @@
 import React from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 
+// Declare a constant reusable Gauge component
 const Gauge = ({
   name,
   min = 0,
@@ -9,9 +10,11 @@ const Gauge = ({
   unit = "",
   customRanges = null,
 }) => {
+  // Check if valid custom ranges are provided
   const hasCustomRanges = Array.isArray(customRanges) && customRanges.length > 1;
 
   return (
+    // Individual Gauge Container
     <div
       className="
         flex flex-col items-center justify-center
@@ -27,6 +30,7 @@ const Gauge = ({
         height={160}
         ringWidth={20}
         valueTextFontSize="0px" // Hide built-in text
+        // Changes in Color based on range
         {...(hasCustomRanges
           ? {
               customSegmentStops: customRanges.map((r) => r.stop),

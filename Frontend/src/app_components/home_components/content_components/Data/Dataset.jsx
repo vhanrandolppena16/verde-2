@@ -2,40 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
 
+// Setting of standard growth duration of hydroponic plant in days
 const GROWTH_DURATION_DAYS = 30;
 
+// Conversion from Growth Days to Growth Stage
+// Based on Describing Lettuce Growth Using Morphological Features Combined with Nonlinear Models
 const getGrowthStage = (days) => {
-  if (days < 7) return "Germination";
-  if (days < 14) return "Seeding";
-  if (days < 21) return "Vegetative";
-  if (days < 28) return "Mature";
-  return "Harvest";
+  if (days <= 5.5) return "Initial (Germination)";
+  if (days <= 26.2) return "Rapid Growth";
+  return "Senescent (May Harvest)";
 };
 
+
 const SensorTable = () => {
+  // State to store sensor readings
   const [sensorData, setSensorData] = useState([]);
+  // State for tracking the plant's growth start date
   const [startDate, setStartDate] = useState(() => {
     const saved = localStorage.getItem('plantStartDate');
     return saved ? new Date(saved) : new Date();
   });
 
-  const [sortAsc, setSortAsc] = useState(false); // false = newest first
+  // State to toggle sort (false = newest first)
+  const [sortAsc, setSortAsc] = useState(false); 
 
+  // Function that retrieved reads real-time data of sensor readings
   useEffect(() => {
-    document.title = "Dataset | Verde";
-  }, []);
-
-  useEffect(() => {
+    document.title = "Dataset | Verde";     // Changing the name of the tab
+    
     const sensorRef = ref(sensor_db, 'readings');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();
+        // Convert Firebase object into an array with timestamp objects
         const parsedData = Object.entries(rawData).map(([id, entry]) => ({
           id,
           ...entry,
           timestampObj: new Date(entry.timestamp)
         }));
 
+        // Sort the array by timestamp (based on sort direction)
         const sortedData = parsedData.sort((a, b) =>
           sortAsc
             ? a.timestampObj - b.timestampObj
@@ -48,19 +54,24 @@ const SensorTable = () => {
       }
     });
 
+    // CLeanup
     return () => unsubscribe();
   }, [sortAsc]); // sort direction is a dependency
 
+  // Resets the plant start date to now and saves it to localStorage
   const handleResetStartDate = () => {
     const now = new Date();
     localStorage.setItem('plantStartDate', now.toISOString());
     setStartDate(now);
   };
 
+  // Toggle the sorting order of the table  
   const toggleSort = () => setSortAsc((prev) => !prev);
 
   return (
-    <div className="w-full h-full p-6">
+    // Whole Dataset Container
+    <div className="w-full h-full p-6 bg-emerald-200 mt-7 rounded-[30px]">
+      {/* Header with reset button */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Sensor Readings Table</h2>
         <button
@@ -71,10 +82,12 @@ const SensorTable = () => {
         </button>
       </div>
 
+      {/* Scrollable table container */}
       <div className="relative overflow-auto max-h-[500px] rounded-xl shadow bg-white">
         <table className="min-w-full table-fixed">
           <thead className="bg-gray-200 sticky top-0 z-10">
             <tr>
+              {/* Sortable timestamp column */}
               <th
                 className="text-left py-2 px-4 w-[200px] cursor-pointer select-none hover:bg-gray-300 transition"
                 onClick={toggleSort}
@@ -82,6 +95,7 @@ const SensorTable = () => {
               >
                 Timestamp {sortAsc ? "▲" : "▼"}
               </th>
+              {/* Other sensor columns */}
               <th className="text-left py-2 px-4 w-[160px]">Temperature (°C)</th>
               <th className="text-left py-2 px-4 w-[140px]">Humidity (%)</th>
               <th className="text-left py-2 px-4 w-[100px]">pH</th>
@@ -92,6 +106,7 @@ const SensorTable = () => {
             </tr>
           </thead>
           <tbody>
+            {/* Render each row of sensor data */}
             {sensorData.map((entry) => {
               const dayNum = Math.floor(
                 (entry.timestampObj - startDate) / (1000 * 60 * 60 * 24)

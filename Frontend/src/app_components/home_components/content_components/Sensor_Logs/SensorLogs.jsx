@@ -1,34 +1,40 @@
+// React imports for hooks
 import React, { useEffect, useState, useRef } from "react";
+// Firebase functions for realtime database interaction
 import { ref, onValue, push } from "firebase/database";
+// Firebase DB reference (custom config)
 import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
 
+// Safe threshold ranges for each sensor parameter
 const THRESHOLDS = {
-  temperature: { min: 18, max: 35 },
-  humidity: { min: 40, max: 80 },
-  ph: { min: 5.5, max: 7.5 },
-  tds: { min: 800, max: 1600 },
+  temperature: { min: 18, max: 35 }, // °C
+  humidity: { min: 40, max: 80 },    // %
+  ph: { min: 5.5, max: 7.5 },        // pH scale
+  tds: { min: 800, max: 1600 },      // ppm
 };
 
 const Logs = () => {
-  const [alerts, setAlerts] = useState([]);
-  const [activeAlerts, setActiveAlerts] = useState({}); // { parameter: ISOString }
-  const lastResolvedKeyRef = useRef(""); // to prevent duplicate resolved alerts
+  const [alerts, setAlerts] = useState([]); // List of current and past alerts
+  const [activeAlerts, setActiveAlerts] = useState({}); // Tracks which parameters are currently out of range
+  const lastResolvedKeyRef = useRef(""); // Optional: for debouncing/resolving duplicates (currently unused)
 
+  // Main function to detect new alerts or resolve old ones
   const checkAndTrack = (entry) => {
-    const now = new Date();
-    const updatedActiveAlerts = { ...activeAlerts };
-    const newOutOfRange = [];
-    const resolvedNow = [];
-  
+    const now = new Date(); // current timestamp
+    const updatedActiveAlerts = { ...activeAlerts }; // copy current alerts
+    const newOutOfRange = []; // new issues to log
+    const resolvedNow = [];   // resolved issues to log
+
+    // Loop through all parameters and check if values are within defined thresholds
     Object.entries(THRESHOLDS).forEach(([param, range]) => {
-      const val = parseFloat(entry[param]);
-      if (isNaN(val)) return;
-  
+      const val = parseFloat(entry[param]); // get the latest value
+      if (isNaN(val)) return; // skip if not a number
+
       const isOutOfRange = val < range.min || val > range.max;
-  
+
       if (isOutOfRange) {
+        // If not previously alerted, mark it as a new alert
         if (!activeAlerts[param]) {
-          // First time this param is out of range → record it
           updatedActiveAlerts[param] = now.toISOString();
           newOutOfRange.push({
             parameter: param,
@@ -37,10 +43,10 @@ const Logs = () => {
           });
         }
       } else {
-        // Came back in range
+        // If previously out of range but now normal, log resolution
         if (activeAlerts[param]) {
           const start = new Date(activeAlerts[param]);
-          const durationMin = Math.round((now - start) / 60000);
+          const durationMin = Math.round((now - start) / 60000); // duration in minutes
           resolvedNow.push({
             parameter: param,
             value: val,
@@ -48,23 +54,23 @@ const Logs = () => {
             durationMinutes: durationMin,
             range: `${range.min}–${range.max}`,
           });
-          delete updatedActiveAlerts[param];
+          delete updatedActiveAlerts[param]; // remove from active alerts
         }
       }
     });
-  
-    // Log ONE alert only if there are new out-of-range parameters
+
+    // If there are new alerts, log one grouped alert entry
     if (newOutOfRange.length > 0) {
       const alertEntry = {
         timestamp: now.toISOString(),
         issues: newOutOfRange,
         raw: entry,
       };
-      setAlerts((prev) => [alertEntry, ...prev]);
-      push(ref(sensor_db, "alerts"), alertEntry);
+      setAlerts((prev) => [alertEntry, ...prev]); // update UI
+      push(ref(sensor_db, "alerts"), alertEntry); // push to Firebase
     }
-  
-    // Log ONE grouped resolution only when something was resolved
+
+    // If any parameters have resolved, log one grouped resolution entry
     if (resolvedNow.length > 0) {
       const resolvedEntry = {
         timestamp: now.toISOString(),
@@ -75,32 +81,38 @@ const Logs = () => {
       setAlerts((prev) => [resolvedEntry, ...prev]);
       push(ref(sensor_db, "alerts"), resolvedEntry);
     }
-  
-    // Update state
+
+    // Update the active alerts state
     setActiveAlerts(updatedActiveAlerts);
   };
-  
-  useEffect(() => {
-    const sensorRef = ref(sensor_db, "readings");
 
+  // useEffect hook to subscribe to sensor data updates
+  useEffect(() => {
+    const sensorRef = ref(sensor_db, "readings"); // reference to sensor data
+
+    // Set up a realtime listener
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();
-        const lastEntry = Object.values(rawData).pop(); // latest reading
-        checkAndTrack(lastEntry);
+        const lastEntry = Object.values(rawData).pop(); // get the most recent reading
+        checkAndTrack(lastEntry); // evaluate the reading
       }
     });
 
+    // Cleanup listener when component unmounts
     return () => unsubscribe();
-  }, [activeAlerts]); // Still modify this
+  }, [activeAlerts]); // re-run if alert status changes
 
+  // JSX to display the alerts section
   return (
     <div className="w-full bg-white shadow-lg rounded-xl p-6 mb-6">
       <h2 className="text-xl font-bold text-red-700 mb-4">⚠️ Sensor Alerts</h2>
       <div className="max-h-[300px] overflow-y-auto pr-2">
         {alerts.length === 0 ? (
+          // No alerts → display neutral message
           <p className="text-gray-600">All parameters are within safe range.</p>
         ) : (
+          // Display the last 6 alerts
           <ul className="space-y-4">
             {alerts.slice(0, 6).map((alert, idx) => (
               <li
@@ -109,11 +121,14 @@ const Logs = () => {
                   alert.status === "resolved" ? "bg-green-100" : "bg-red-100"
                 } border border-gray-300 p-4 rounded-md shadow-sm`}
               >
+                {/* Alert or Resolution label */}
                 <p className="font-semibold mb-1">
                   {alert.status === "resolved"
                     ? `✅ Resolved at ${new Date(alert.timestamp).toLocaleString()}`
                     : `⚠️ Alert at ${new Date(alert.timestamp).toLocaleString()}`}
                 </p>
+
+                {/* List of parameter issues */}
                 <ul className="ml-4 list-disc text-sm">
                   {alert.issues.map((issue, i) => (
                     <li key={i}>

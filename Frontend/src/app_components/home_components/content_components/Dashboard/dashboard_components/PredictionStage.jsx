@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import GrowthStage from "../../../../../assets/images/lettuce-growing-timeline.png";
 
 const PredictionStage = () => {
-  const [hovered, setHovered] = useState(false); // Track hover state
+  const [hovered, setHovered] = useState(false); 
+  // Track hover state for shifting of prediction
+  // From Predicted Growth Stage to Predicted Growth Days
 
   return (
+    // Prediction Container
     <div
       className="
         relative flex items-center justify-center

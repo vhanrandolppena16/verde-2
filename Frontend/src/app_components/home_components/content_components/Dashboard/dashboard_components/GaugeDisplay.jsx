@@ -1,6 +1,7 @@
 import React from "react";
 import Gauge from "./Gauge";
 
+// Function that takes sensor data
 const SensorReadings = ({ temperature, humidity, pH, tds }) => {
   return (
     <div
@@ -9,6 +10,7 @@ const SensorReadings = ({ temperature, humidity, pH, tds }) => {
         xl:col-span-2
       "
     >
+      {/**Calls for individual parameter */}
       <Gauge
         name="Temperature"
         min={0}
