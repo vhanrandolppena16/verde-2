@@ -1,3 +1,4 @@
+//PredictionStage.jsx
 import React, { useState } from "react";
 import GrowthStage from "../../../../../assets/images/lettuce-growing-timeline.png";
 
