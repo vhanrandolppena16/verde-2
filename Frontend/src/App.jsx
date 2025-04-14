@@ -14,7 +14,7 @@ import { Routes, Route } from "react-router";
     import Home from "./app_components/home_components/Home";                           
     import Dashboard from "./app_components/home_components/content_components/Dashboard/Dashboard";
     import SensorGraph from "./app_components/home_components/content_components/Data Analytics/Analytics";
-    import Dataset from "./app_components/home_components/content_components/Data/Dataset Draggable";
+    import Dataset from "./app_components/home_components/content_components/Data/Dataset";
     import AboutPage from "./app_components/home_components/content_components/About/About";
     import LiveStreamPage from "./app_components/home_components/content_components/LiveStream/LiveStream";
     import Logs from "./app_components/home_components/content_components/Sensor_Logs/SensorLogs";
