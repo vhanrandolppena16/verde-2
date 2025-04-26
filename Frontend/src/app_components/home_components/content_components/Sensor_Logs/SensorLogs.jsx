@@ -98,7 +98,7 @@ const Logs = () => {
     // Increment the rerun count
     rerunCountRef.current += 1;
   
-    const sensorRef = ref(sensor_db, "full_data"); // reference to sensor data
+    const sensorRef = ref(sensor_db, "predictions"); // reference to sensor data
   
     // Set up a realtime listener
     const unsubscribe = onValue(sensorRef, (snapshot) => {
