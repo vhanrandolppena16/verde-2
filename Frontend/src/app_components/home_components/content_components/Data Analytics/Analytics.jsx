@@ -18,6 +18,7 @@ const PARAMS = [
   { key: "humidity", label: "Humidity (%)" },
   { key: "ph", label: "pH" },
   { key: "tds", label: "TDS (ppm)" },
+  { key: "predicted_days", label: "Prediction Trend" },
 ];
 
 const SensorGraph = () => {
@@ -32,7 +33,7 @@ const SensorGraph = () => {
     document.title = "Analytics | Verde";     // Changing the name of the tab
     
     // Reference to 'readings' in Firebase
-    const sensorRef = ref(sensor_db, "readings");
+    const sensorRef = ref(sensor_db, "predictions");
 
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {

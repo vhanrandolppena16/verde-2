@@ -11,6 +11,7 @@
   import SensorReadings from "./dashboard_components/GaugeDisplay";         // For Current Sensor Reading Visualization
   import PredictionStage from "./dashboard_components/PredictionStage";     // For Prediction
   import LiveStreamPage from "../LiveStream/LiveStream";                    // For mini-live monitoring
+  import getGrowthStage from "./dashboard_components/getGrowthStage";
 
 const Dashboard = () => {
 
@@ -19,6 +20,8 @@ const Dashboard = () => {
   const [humidityvalue, setHumidity] = useState(null);
   const [pHvalue, setPH] = useState(null);
   const [tdsvalue, setTDS] = useState(null);
+  const [predicted_day_value, setPredicted_days] = useState(null);
+  const [predicted_stage_value, setPredicted_stage] = useState(null);
 
   // Function for getting data from realtime database
   useEffect(() => {
@@ -27,7 +30,7 @@ const Dashboard = () => {
     
     // States constant reference for sensor readings location
     // whereas it is stored in sensor_db within the readings node
-    const readingsRef = ref(sensor_db, "readings");
+    const readingsRef = ref(sensor_db, 'predictions'); // change it back to readings
 
     // Real-time Listener for Sensor Readings
     onValue(readingsRef, (snapshot) => {
@@ -38,15 +41,25 @@ const Dashboard = () => {
         const latestReading = data[latestReadingId];  // Retrieving Data
 
         // Updating Variable states
-        setTemperature(latestReading.temperature);
-        setHumidity(latestReading.humidity);
-        setPH(latestReading.ph);
-        setTDS(latestReading.tds);
+        if (latestReading) {
+          setTemperature(latestReading.temperature ?? null);
+          setHumidity(latestReading.humidity ?? null);
+          setPH(latestReading.ph ?? null);
+          setTDS(latestReading.tds ?? null);
+          setPredicted_days(latestReading.predicted_days ?? null);
+        }
       }
     });
 
     return () => {}; // Clear
   }, []);
+
+    // Compute stage from predicted_days whenever it updates
+  useEffect(() => {
+    if (predicted_day_value !== null) {
+      setPredicted_stage(getGrowthStage(predicted_day_value));
+    }
+  }, [predicted_day_value]);
 
   return (
     // Dashboard Container
@@ -61,7 +74,10 @@ const Dashboard = () => {
       {/**Container for the prediction and mini-live */}
       <div className="flex flex-col gap-4 h-full max-h-[620px]">
         <div className="flex-1">
-          <PredictionStage />
+          <PredictionStage 
+            predicted_days={predicted_day_value}
+            predicted_stages={predicted_stage_value}
+          />
         </div>
         <Link to="/livestream" className="flex-1 block">
           <div className="w-full h-full cursor-pointer">

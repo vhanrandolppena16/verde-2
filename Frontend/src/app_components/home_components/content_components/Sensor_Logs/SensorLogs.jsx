@@ -5,6 +5,10 @@ import { ref, onValue, push } from "firebase/database";
 // Firebase DB reference (custom config)
 import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
 
+// Modify the logs to Modal
+// Display Log History
+// Include COntrol
+
 // Safe threshold ranges for each sensor parameter
 const THRESHOLDS = {
   temperature: { min: 18, max: 35 }, // °C
@@ -94,7 +98,7 @@ const Logs = () => {
     // Increment the rerun count
     rerunCountRef.current += 1;
   
-    const sensorRef = ref(sensor_db, "readings"); // reference to sensor data
+    const sensorRef = ref(sensor_db, "full_data"); // reference to sensor data
   
     // Set up a realtime listener
     const unsubscribe = onValue(sensorRef, (snapshot) => {

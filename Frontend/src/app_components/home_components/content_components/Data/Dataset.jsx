@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { sensor_db } from "../../../../Firebase Database/FirebaseConfig";
-
+import getGrowthStage from "../Dashboard/dashboard_components/getGrowthStage";
 // Setting of standard growth duration of hydroponic plant in days
 const GROWTH_DURATION_DAYS = 30;
 
 // Conversion from Growth Days to Growth Stage
 // Based on Describing Lettuce Growth Using Morphological Features Combined with Nonlinear Models
-const getGrowthStage = (days) => {
-  if (days <= 5.5) return "Initial (Germination)";
-  if (days <= 26.2) return "Rapid Growth";
-  return "Senescent (May Harvest)";
-};
-
+// const getGrowthStage = (days) => {
+//   if (days <= 5.5) return "Initial (Germination)";
+//   if (days <= 26.2) return "Rapid Growth";
+//   return "Senescent (May Harvest)";
+// };
 
 const SensorTable = () => {
   // State to store sensor readings
@@ -30,7 +29,7 @@ const SensorTable = () => {
   useEffect(() => {
     document.title = "Dataset | Verde";     // Changing the name of the tab
     
-    const sensorRef = ref(sensor_db, 'readings');
+    const sensorRef = ref(sensor_db, 'predictions');
     const unsubscribe = onValue(sensorRef, (snapshot) => {
       if (snapshot.exists()) {
         const rawData = snapshot.val();
@@ -101,8 +100,9 @@ const SensorTable = () => {
               <th className="text-left py-2 px-4 w-[100px]">pH</th>
               <th className="text-left py-2 px-4 w-[140px]">TDS (ppm)</th>
               <th className="text-left py-2 px-4 w-[100px]">Day #</th>
-              <th className="text-left py-2 px-4 w-[140px]">Growth Stage</th>
+              <th className="text-left py-2 px-4 w-[140px]">Current Growth Stage</th>
               <th className="text-left py-2 px-4 w-[200px]">Predicted Maturity (Days)</th>
+              <th className="text-left py-2 px-4 w-[140px]">Predicted Growth Stage</th>
             </tr>
           </thead>
           <tbody>
@@ -120,7 +120,8 @@ const SensorTable = () => {
                   <td className="py-2 px-4">{entry.tds}</td>
                   <td className="py-2 px-4">{dayNum >= 0 ? dayNum : 0}</td>
                   <td className="py-2 px-4">{getGrowthStage(dayNum)}</td>
-                  <td className="py-2 px-4">{GROWTH_DURATION_DAYS}</td>
+                  <td className="py-2 px-4">{entry.predicted_days}</td>{/**Apply the prediction here */}
+                  <td className="py-2 px-4">{getGrowthStage(entry.predicted_days)}</td> 
                 </tr>
               );
             })}

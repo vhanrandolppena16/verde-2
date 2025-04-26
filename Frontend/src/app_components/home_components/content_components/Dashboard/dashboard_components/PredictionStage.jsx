@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import GrowthStage from "../../../../../assets/images/lettuce-growing-timeline.png";
 
-const PredictionStage = () => {
+const PredictionStage = ({predicted_days, predicted_stages}) => {
   const [hovered, setHovered] = useState(false); 
   // Track hover state for shifting of prediction
   // From Predicted Growth Stage to Predicted Growth Days
@@ -27,10 +27,14 @@ const PredictionStage = () => {
         className="
           relative items-center 
           bg-green-700 text-white px-6 py-3 rounded-xl shadow-xl 
-          text-4xl font-bold tracking-wide transition-all duration-200
+          text-3xl font-bold tracking-wide transition-all duration-200
         "
       >
-        {hovered ? "Prediction Results" : "Vegetative Stage"}
+        {hovered
+          ? predicted_days !== null
+            ? `${predicted_days} days`
+            : "Loading..."
+          : predicted_stages || "Loading Stage..."}
       </h2>
     </div>
   );
